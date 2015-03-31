@@ -43,7 +43,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         function success(pos) {
             // Location found, show map with these coordinates
             yourloc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-            //drawMap(yourloc);
+            drawMap(yourloc);
             geoloc = true;
 
         }
