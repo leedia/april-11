@@ -328,7 +328,7 @@ function calcRoute() {
         function success(pos) {
             // Location found
             var start1 = pos.coords.latitude;
-            var start2 = pos.coords.longitude);
+            var start2 = pos.coords.longitude;
             var end = document.getElementById('end').value;
             var request = {
                 origin: start1,start2,
