@@ -288,35 +288,39 @@ $( document ).on( "pageinit", "#map-page", function() {
 
 function calcRoute() {
 
-  // First, remove any existing markers from the map.
-  for (var i = 0; i < markerArray.length; i++) {
-    markerArray[i].setMap(null);
-    markerArray[i] = null;
-  }
-
-  // Now, clear the array itself.
-  markerArray = [];
-
-  // Retrieve the start and end locations and create
-  // a DirectionsRequest using WALKING directions.
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
-  var request = {
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode.WALKING
-  };
-
-  // Route the directions and pass the response to a
-  // function to create markers for each step.
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      var warnings = document.getElementById('warnings_panel');
-      warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
-      directionsDisplay.setDirections(response);
-      showSteps(response);
+  if(document.getElementById('start').value != null
+    && document.getElementById('end').value != null
+    && document.getElementById('start').value != document.getElementById('end').value) {
+    // First, remove any existing markers from the map.
+    for (var i = 0; i < markerArray.length; i++) {
+      markerArray[i].setMap(null);
+      markerArray[i] = null;
     }
-  });
+
+    // Now, clear the array itself.
+    markerArray = [];
+
+    // Retrieve the start and end locations and create
+    // a DirectionsRequest using WALKING directions.
+    var start = document.getElementById('start').value;
+    var end = document.getElementById('end').value;
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.WALKING
+    };
+
+    // Route the directions and pass the response to a
+    // function to create markers for each step.
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        var warnings = document.getElementById('warnings_panel');
+        warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
+        directionsDisplay.setDirections(response);
+        showSteps(response);
+      }
+    });
+  }
 }
 
 function calcRoute(startval, endval) {
