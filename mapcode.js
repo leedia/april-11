@@ -503,6 +503,9 @@ function calcRoute() {
     if ( navigator.geolocation ) {
         function success(pos) {
             // Location found
+            var myselect = $("select#start");
+            myselect[0].selectedIndex = 1;
+            myselect.selectmenu("refresh");
             var start = ''+pos.coords.latitude+','+pos.coords.longitude;
             var end = document.getElementById('end').value;
             var request = {
