@@ -536,7 +536,7 @@ function calcRoute() {
 
   else if(document.getElementById('start').value = "yourloc" 
     && (document.getElementById('end').value == null
-    || document.getElementById('end').value == '#') {
+    || document.getElementById('end').value == '#')) {
       var myselect = $("select#start");
       myselect[0].selectedIndex = 1;
       myselect.selectmenu("refresh");
