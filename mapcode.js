@@ -290,7 +290,7 @@ function calcRoute() {
 
   if(document.getElementById('start').value != null
     && document.getElementById('end').value != null
-    && document.getElementById('start').value != "yourloc"
+    && document.getElementById('start').id != "yourloc"
     && document.getElementById('start').value != document.getElementById('end').value) {
     // First, remove any existing markers from the map.
     for (var i = 0; i < markerArray.length; i++) {
@@ -323,12 +323,11 @@ function calcRoute() {
     });
   }
 
-  else if(document.getElementById('start').value == "yourloc") {
+  else if(document.getElementById('start').id = "yourloc") {
     if ( navigator.geolocation ) {
         function success(pos) {
             // Location found
-            var start1 = pos.coords.latitude;
-            var start2 = pos.coords.longitude;
+            var start = document.getElementById('start').value;
             var end = document.getElementById('end').value;
             var request = {
                 origin: start1,start2,

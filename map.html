@@ -39,7 +39,7 @@
 				    <label for="start">Start</label>
 				    <select name="start" id="start" onchange = "calcRoute();">
 				    	<option value = "#" data-placeholder = "true">Start</option>
-				    	<option value="yourloc">Your location</option>
+				    	<option id = "yourloc" value=pos.coords.latitude,pos.coords.longitude>Your location</option>
 				        <option value= 42.273759,-71.237571>Bowling Green</option>
 				        <option value= 42.274756,-71.237987>Kosta's Pizza</option>
 				        <option value= 42.280148,-71.236784>Roche Brothers</option>
