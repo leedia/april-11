@@ -327,10 +327,11 @@ function calcRoute() {
     if ( navigator.geolocation ) {
         function success(pos) {
             // Location found
-            var start = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            var start1 = pos.coords.latitude;
+            var start2 = pos.coords.longitude);
             var end = document.getElementById('end').value;
             var request = {
-                origin: start,
+                origin: start1,start2,
                 destination: end,
                 travelMode: google.maps.TravelMode.WALKING
             };
