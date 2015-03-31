@@ -321,6 +321,40 @@ function calcRoute() {
       }
     });
   }
+  else if(document.getElementById('start').value == "yourloc") {
+    if ( navigator.geolocation ) {
+        function success(pos) {
+            // Location found
+            var start = 
+            var end = document.getElementById('end').value;
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+
+            // Route the directions and pass the response to a
+            // function to create markers for each step.
+            directionsService.route(request, function(response, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                var warnings = document.getElementById('warnings_panel');
+                warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
+                directionsDisplay.setDirections(response);
+                showSteps(response);
+              }
+            });
+
+        }
+        function fail(error) {
+            alert("Your location was not found. Please pick a different starting point.");  // Failed to find location, show default map
+        }
+        // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
+        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+    } else {
+      alert("Your location was not found. Please pick a different starting point.");
+    }
+
+  }
 }
 
 function calcRoute(startval, endval) {
