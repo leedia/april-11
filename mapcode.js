@@ -16,6 +16,7 @@ var stepDisplay;
 var markerArray = [];
 
 //coordinates
+var yourloc;
 var defaultLatLng = new google.maps.LatLng(42.273759,-71.237571);  // Default to YMCA
 var bowlinggreenloc = new google.maps.LatLng(42.273759,-71.237571);
 var kostaspizzaloc = new google.maps.LatLng(42.274756,-71.237987);
@@ -39,8 +40,10 @@ $( document ).on( "pageinit", "#map-page", function() {
     if ( navigator.geolocation ) {
         function success(pos) {
             // Location found, show map with these coordinates
-            drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            yourloc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            drawMap(yourloc);
             geoloc = true;
+
         }
         function fail(error) {
             drawMap(defaultLatLng);  // Failed to find location, show default map
