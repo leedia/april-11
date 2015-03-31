@@ -32,14 +32,58 @@ var towncenterloc = new google.maps.LatLng(42.279678, -71.235826);
 
 $( document ).on( "pageinit", "#map-page", function() {
 
-    /*if(gettingdirections) {
-        drawMap
+    var a = location.href; 
+    var b = a.substring(a.indexOf("?")+1);
+
+    if(b == "bowlinggreen"){
+      drawMap(bowlinggreenloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 1;
+      myselect.selectmenu("refresh");
     }
-    else {
-        //geolocation code
-    }*/
-    //alert(window.location.hash);
-    if ( navigator.geolocation ) {
+    else if(b == "kostaspizza"){
+      drawMap(kostaspizzaloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 2;
+      myselect.selectmenu("refresh");
+    }
+    else if(b == "rochebros"){
+      drawMap(rochebrosloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 3;
+      myselect.selectmenu("refresh");
+    }
+    else if(b == "branchlib"){
+      drawMap(branchlibloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 5;
+      myselect.selectmenu("refresh");
+    }
+    else if(b == "glover"){
+      drawMap(gloverloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 7;
+      myselect.selectmenu("refresh");
+    }
+    else if(b == "polfire"){
+      drawMap(polfirestationloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 8;
+      myselect.selectmenu("refresh");
+    }
+    else if(b == "robbery"){
+      drawMap(bankrobberyloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 9;
+      myselect.selectmenu("refresh");
+    }
+    else if(b == "towncenter"){
+      drawMap(towncenterloc);
+      var myselect = $("select#end");
+      myselect[0].selectedIndex = 10;
+      myselect.selectmenu("refresh");
+    }
+    else if ( navigator.geolocation ) {
         function success(pos) {
             // Location found, show map with these coordinates
             yourloc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
@@ -55,15 +99,6 @@ $( document ).on( "pageinit", "#map-page", function() {
     } else {
         drawMap(defaultLatLng);  // No geolocation support, show default map
     }
-
-    //if a value has been entered for the location user wants to see, draw map with that
-    /*if() {
-
-    }
-    //else draw with default- YMCA coords
-    else {
-
-    }*/
 
     //drawing map
     function drawMap(latlng) {
