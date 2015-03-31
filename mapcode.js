@@ -462,7 +462,7 @@ function calcRoute() {
 
   if(document.getElementById('start').value != null
     && document.getElementById('end').value != null
-    && document.getElementById('start').id != "yourloc"
+    && document.getElementById('start').value != "yourloc"
     && document.getElementById('start').value != document.getElementById('end').value) {
     // First, remove any existing markers from the map.
     for (var i = 0; i < markerArray.length; i++) {
@@ -495,11 +495,12 @@ function calcRoute() {
     });
   }
 
-  else if(document.getElementById('start').id = "yourloc") {
+  else if(document.getElementById('start').value = "yourloc" 
+    && document.getElementById('end').value != null) {
     if ( navigator.geolocation ) {
         function success(pos) {
             // Location found
-            var start = document.getElementById('start').value;
+            var start = ''+pos.coords.latitude+','+pos.coords.longitude;
             var end = document.getElementById('end').value;
             var request = {
                 origin: start,
@@ -531,38 +532,6 @@ function calcRoute() {
   }
 }
 
-function calcRoute(startval, endval) {
-
-  // First, remove any existing markers from the map.
-  for (var i = 0; i < markerArray.length; i++) {
-    markerArray[i].setMap(null);
-  }
-
-  // Now, clear the array itself.
-  markerArray = [];
-
-  // Retrieve the start and end locations and create
-  // a DirectionsRequest using WALKING directions.
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
-  var request = {
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode.WALKING
-  };
-
-  // Route the directions and pass the response to a
-  // function to create markers for each step.
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      var warnings = document.getElementById('warnings_panel');
-      warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';
-      directionsDisplay.setDirections(response);
-      showSteps(response);
-    }
-  });
-}
-
 function showSteps(directionResult) {
   // For each step, place a marker, and add the text to the marker's
   // info window. Also attach the marker to an array so we
@@ -589,21 +558,3 @@ function attachInstructionText(marker, text) {
   });
 }
 
-//set the start menu option to the right name
-//show a map centered on the correct location
-function getDirections(lat,lng) {
-    $('#start').val(lat+','+lng).selectmenu('refresh');
-    defaultLatLng = new google.maps.LatLng(lat+','+lng);
-    alert(defaultLatLng);
-    //window.location.href = "map.html#map-page";
-}
-
-
-function testFunc(testvar) {
-    alert(testvar);
-}
-
-//.button vs #button
-$( ".myButton" ).bind( "click", function(event, ui) {
-
-});
