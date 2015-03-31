@@ -21,7 +21,9 @@ var defaultLatLng = new google.maps.LatLng(42.273759,-71.237571);  // Default to
 var bowlinggreenloc = new google.maps.LatLng(42.273759,-71.237571);
 var kostaspizzaloc = new google.maps.LatLng(42.274756,-71.237987);
 var rochebrosloc = new google.maps.LatLng(42.280148, -71.236784);
+var newrochebrosloc = new google.maps.LatLng(42.273991, -71.237905);
 var branchlibloc = new google.maps.LatLng(42.280075, -71.238071);
+var currentlibloc = new google.maps.LatLng(42.287640, -71.235483);
 var gloverloc = new google.maps.LatLng(42.277266, -71.236697);
 var polfirestationloc = new google.maps.LatLng(42.278492, -71.236677);
 var bankrobberyloc = new google.maps.LatLng(42.280432, -71.238138);
@@ -41,7 +43,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         function success(pos) {
             // Location found, show map with these coordinates
             yourloc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-            drawMap(yourloc);
+            //drawMap(yourloc);
             geoloc = true;
 
         }
@@ -53,6 +55,15 @@ $( document ).on( "pageinit", "#map-page", function() {
     } else {
         drawMap(defaultLatLng);  // No geolocation support, show default map
     }
+
+    //if a value has been entered for the location user wants to see, draw map with that
+    /*if() {
+
+    }
+    //else draw with default- YMCA coords
+    else {
+
+    }*/
 
     //drawing map
     function drawMap(latlng) {
@@ -81,10 +92,10 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         //if geolocation is enabled, show marker at user's position
     if (geoloc) {
-      var mcintosh = new google.maps.Marker({
+      var you = new google.maps.Marker({
               position: latlng,
               map: map,
-              //animation: google.maps.Animation.DROP,
+              animation: google.maps.Animation.DROP,
               title: "You are here"
           });
     }
@@ -118,11 +129,23 @@ $( document ).on( "pageinit", "#map-page", function() {
               '</div>';
         strings.push(contentString);
 
-        //Roche Brothers
+        //Roche Brothers First
         contentString = '<div id="content">'+
               '<div id="siteNotice">'+
               '</div>'+
-              '<h3 id="firstHeading" class="firstHeading">Roche Brothers</h3>'+
+              '<h3 id="firstHeading" class="firstHeading">Roche Brothers (First Location)</h3>'+
+              '<div id="bodyContent">'+
+              '<p>Content.</p>'+
+              '<p>Read more <a href="sites.html#RocheBrothers" data-ajax="false"> here.</a> </p>'+
+              '</div>'+
+              '</div>';
+        strings.push(contentString);
+
+        //Roche Brothers Current
+        contentString = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h3 id="firstHeading" class="firstHeading">Roche Brothers (Current Location)</h3>'+
               '<div id="bodyContent">'+
               '<p>Content.</p>'+
               '<p>Read more <a href="sites.html#RocheBrothers" data-ajax="false"> here.</a> </p>'+
@@ -135,6 +158,18 @@ $( document ).on( "pageinit", "#map-page", function() {
               '<div id="siteNotice">'+
               '</div>'+
               '<h3 id="firstHeading" class="firstHeading">Needham Branch Library</h3>'+
+              '<div id="bodyContent">'+
+              '<p>Needham&#39;s first library association was formed in 1796 as a private subscription library.</p>'+
+              '<p>Read more <a href="sites.html#BranchLib" data-ajax="false"> here.</a> </p>'+
+              '</div>'+
+              '</div>';
+        strings.push(contentString);
+
+        //Current Library
+        contentString = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h3 id="firstHeading" class="firstHeading">Needham Public Library</h3>'+
               '<div id="bodyContent">'+
               '<p>Needham&#39;s first library association was formed in 1796 as a private subscription library.</p>'+
               '<p>Read more <a href="sites.html#BranchLib" data-ajax="false"> here.</a> </p>'+
@@ -207,13 +242,25 @@ $( document ).on( "pageinit", "#map-page", function() {
         var rochebros = new google.maps.Marker({
           position: rochebrosloc,
           map:map,
-          title: "Roche Brothers"
+          title: "Roche Brothers (First Location)"
+        });
+
+        var newrochebros = new google.maps.Marker({
+          position: newrochebrosloc,
+          map:map,
+          title: "Roche Brothers (Current Location)"
         });
 
         var branchlib = new google.maps.Marker({
           position: branchlibloc,
           map:map,
           title: "Needham Branch Library"
+        }); 
+
+        var currentlib = new google.maps.Marker({
+          position: currentlibloc,
+          map:map,
+          title: "Needham Public Library"
         }); 
 
         var glover = new google.maps.Marker({
@@ -257,28 +304,38 @@ $( document ).on( "pageinit", "#map-page", function() {
                 infowindow.open(map, this);
         });
 
-        google.maps.event.addListener(branchlib, 'click', function() {
+        google.maps.event.addListener(newrochebros, 'click', function() {
                 infowindow.setContent(strings[3]);
                 infowindow.open(map, this);
         });
 
-        google.maps.event.addListener(glover, 'click', function() {
+        google.maps.event.addListener(branchlib, 'click', function() {
                 infowindow.setContent(strings[4]);
                 infowindow.open(map, this);
         });
 
-        google.maps.event.addListener(polfirestation, 'click', function() {
+        google.maps.event.addListener(currentlib, 'click', function() {
                 infowindow.setContent(strings[5]);
                 infowindow.open(map, this);
-        }); 
+        });
 
-        google.maps.event.addListener(bankrobbery, 'click', function() {
+        google.maps.event.addListener(glover, 'click', function() {
                 infowindow.setContent(strings[6]);
                 infowindow.open(map, this);
         });
 
-        google.maps.event.addListener(towncenter, 'click', function() {
+        google.maps.event.addListener(polfirestation, 'click', function() {
                 infowindow.setContent(strings[7]);
+                infowindow.open(map, this);
+        }); 
+
+        google.maps.event.addListener(bankrobbery, 'click', function() {
+                infowindow.setContent(strings[8]);
+                infowindow.open(map, this);
+        });
+
+        google.maps.event.addListener(towncenter, 'click', function() {
+                infowindow.setContent(strings[9]);
                 infowindow.open(map, this);
         });
     
