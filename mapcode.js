@@ -330,7 +330,7 @@ function calcRoute() {
             var start = document.getElementById('start').value;
             var end = document.getElementById('end').value;
             var request = {
-                origin: start1,start2,
+                origin: start,
                 destination: end,
                 travelMode: google.maps.TravelMode.WALKING
             };
