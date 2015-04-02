@@ -23,7 +23,6 @@ var kostaspizzaloc = new google.maps.LatLng(42.274756,-71.237987);
 var rochebrosloc = new google.maps.LatLng(42.280148, -71.236784);
 var newrochebrosloc = new google.maps.LatLng(42.273991, -71.237905);
 var branchlibloc = new google.maps.LatLng(42.280075, -71.238071);
-var currentlibloc = new google.maps.LatLng(42.287640, -71.235483);
 var gloverloc = new google.maps.LatLng(42.277266, -71.236697);
 var polfirestationloc = new google.maps.LatLng(42.278492, -71.236677);
 var bankrobberyloc = new google.maps.LatLng(42.280432, -71.238138);
@@ -31,6 +30,7 @@ var towncenterloc = new google.maps.LatLng(42.279678, -71.235826);
 
 
 $( document ).on( "pageinit", "#map-page", function() {
+    geoloc = false;
 
     var a = location.href; 
     var b = a.substring(a.indexOf("?")+1);
@@ -62,25 +62,25 @@ $( document ).on( "pageinit", "#map-page", function() {
     else if(b == "glover"){
       drawMap(gloverloc);
       var myselect = $("select#end");
-      myselect[0].selectedIndex = 7;
+      myselect[0].selectedIndex = 6;
       myselect.selectmenu("refresh");
     }
     else if(b == "polfire"){
       drawMap(polfirestationloc);
       var myselect = $("select#end");
-      myselect[0].selectedIndex = 8;
+      myselect[0].selectedIndex = 7;
       myselect.selectmenu("refresh");
     }
     else if(b == "robbery"){
       drawMap(bankrobberyloc);
       var myselect = $("select#end");
-      myselect[0].selectedIndex = 9;
+      myselect[0].selectedIndex = 8;
       myselect.selectmenu("refresh");
     }
     else if(b == "towncenter"){
       drawMap(towncenterloc);
       var myselect = $("select#end");
-      myselect[0].selectedIndex = 10;
+      myselect[0].selectedIndex = 9;
       myselect.selectmenu("refresh");
     }
     else if ( navigator.geolocation ) {
@@ -130,9 +130,15 @@ $( document ).on( "pageinit", "#map-page", function() {
       var you = new google.maps.Marker({
               position: latlng,
               map: map,
+              icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
               animation: google.maps.Animation.DROP,
               title: "You are here"
           });
+
+      google.maps.event.addListener(you, 'click', function() {
+                infowindow.setContent("You are here.");
+                infowindow.open(map, this);
+        });
     }
 
         var infowindow = new google.maps.InfoWindow();
@@ -200,18 +206,6 @@ $( document ).on( "pageinit", "#map-page", function() {
               '</div>';
         strings.push(contentString);
 
-        //Current Library
-        contentString = '<div id="content">'+
-              '<div id="siteNotice">'+
-              '</div>'+
-              '<h3 id="firstHeading" class="firstHeading">Needham Public Library</h3>'+
-              '<div id="bodyContent">'+
-              '<p>Needham&#39;s first library association was formed in 1796 as a private subscription library.</p>'+
-              '<p>Read more <a href="sites.html#BranchLib" data-ajax="false"> here.</a> </p>'+
-              '</div>'+
-              '</div>';
-        strings.push(contentString);
-
         //Glover Hospital
         contentString = '<div id="content">'+
               '<div id="siteNotice">'+
@@ -267,13 +261,7 @@ $( document ).on( "pageinit", "#map-page", function() {
             map: map,
             title: "Bowling Green",
             animation: google.maps.Animation.DROP,
-            icon: {
-              url: "logo.png",
-              size: new google.maps.Size(32, 32),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(16, 16),
-              scaledSize: new google.maps.Size(32, 32)
-            }
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var kostaspizza = new google.maps.Marker({
@@ -281,13 +269,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "TripAdvisor/Kosta's Pizza",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var rochebros = new google.maps.Marker({
@@ -295,13 +277,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Roche Brothers (First Location)",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var newrochebros = new google.maps.Marker({
@@ -309,13 +285,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Roche Brothers (Current Location)",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var branchlib = new google.maps.Marker({
@@ -323,27 +293,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Needham Branch Library",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
-        }); 
-
-        var currentlib = new google.maps.Marker({
-          position: currentlibloc,
-          map:map,
-          title: "Needham Public Library",
-          animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         }); 
 
         var glover = new google.maps.Marker({
@@ -351,13 +301,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Glover Hospital",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var polfirestation = new google.maps.Marker({
@@ -365,13 +309,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Police and Fire Station",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var bankrobbery = new google.maps.Marker({
@@ -379,13 +317,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Needham Trust Bank Robbery",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
         var towncenter = new google.maps.Marker({
@@ -393,13 +325,7 @@ $( document ).on( "pageinit", "#map-page", function() {
           map:map,
           title: "Glover Hospital",
           animation: google.maps.Animation.DROP,
-          icon: {
-            url: "logo.png",
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 16),
-            scaledSize: new google.maps.Size(32, 32)
-          }
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
 
@@ -429,28 +355,23 @@ $( document ).on( "pageinit", "#map-page", function() {
                 infowindow.open(map, this);
         });
 
-        google.maps.event.addListener(currentlib, 'click', function() {
+        google.maps.event.addListener(glover, 'click', function() {
                 infowindow.setContent(strings[5]);
                 infowindow.open(map, this);
         });
 
-        google.maps.event.addListener(glover, 'click', function() {
-                infowindow.setContent(strings[6]);
-                infowindow.open(map, this);
-        });
-
         google.maps.event.addListener(polfirestation, 'click', function() {
-                infowindow.setContent(strings[7]);
+                infowindow.setContent(strings[6]);
                 infowindow.open(map, this);
         }); 
 
         google.maps.event.addListener(bankrobbery, 'click', function() {
-                infowindow.setContent(strings[8]);
+                infowindow.setContent(strings[7]);
                 infowindow.open(map, this);
         });
 
         google.maps.event.addListener(towncenter, 'click', function() {
-                infowindow.setContent(strings[9]);
+                infowindow.setContent(strings[8]);
                 infowindow.open(map, this);
         });
     
@@ -497,7 +418,7 @@ function calcRoute() {
     });
   }
 
-  else if(document.getElementById('start').value = "yourloc" 
+  else if(document.getElementById('start').value == "yourloc" 
     && document.getElementById('end').value != null
     && document.getElementById('end').value != '#') {
     if ( navigator.geolocation ) {
@@ -537,13 +458,13 @@ function calcRoute() {
 
   }
 
-  else if(document.getElementById('start').value = "yourloc" 
-    && (document.getElementById('end').value == null
-    || document.getElementById('end').value == '#')) {
+  else if(document.getElementById('start').value == "yourloc" && document.getElementById('end').value == '#') {
       var myselect = $("select#start");
       myselect[0].selectedIndex = 1;
       myselect.selectmenu("refresh");
+      console.log(document.getElementById('start').value);
   }
+
 }
 
 function showSteps(directionResult) {
