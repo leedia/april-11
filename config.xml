@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.phonegap.example"
+        versionCode = "36" 
+        version     = "1.0.0" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Needham Walk</name>
+
+    <description>
+        Join the old with the new, and journey through Needham's fascinating history.
+    </description>
+
+    <author>
+        WeStory
+    </author>
+
+    <preference name="permissions" value="none"/>
+
+</widget>
